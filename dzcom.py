@@ -55,7 +55,7 @@ class DzSensor:
     LOOP_TIME = 10
 
     def __init__(self, param_string, idx, t_min=5, t_max=0):
-        """Create a DzSensoAPI object
+        """Create a DzSensor object
         Parameters:
         - param_string: parameter string to be used in the URL.
           Use predefined PARAM_STRING_xxx.
