@@ -72,15 +72,18 @@ class Teleinfo(Thread):
 
         # Open the COM port at 1200 bauds
         self.fd = serialOpen(device, 1200)
+        self._current = -1
+        self._power = -1
+        self._index = -1
         self.start()
 
     def current(self):
         """Returns the last value of the instantaneaous current, in Amps"""
         with self.data_lock:
-            iinst = self.current
+            iinst = self._current
         return iinst
 
-    def puissance(self):
+    def power(self):
         """Returns the last value of the apparent power, in VA"""
         with self.data_lock:
             papp = self._power
@@ -166,7 +169,7 @@ class Teleinfo(Thread):
                 if self._callback:
                     self._callback(iinst)
                 with self.data_lock:
-                    self.current = iinst
+                    self._current = iinst
                 if self.dz_current:
                     self.dz_current.refresh(iinst)
             elif label == 'BASE':
